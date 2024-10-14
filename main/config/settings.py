@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-93_n7fuml@k+wscqm#7p8040)w!p!iyra2++#ta)od!u^@@_qx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['web', "0.0.0.0", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ['web', 'web-2', 'web-3', "0.0.0.0", "localhost", "127.0.0.1"]
 
 # Application definition
 
@@ -151,3 +151,50 @@ STATIC_ROOT = '/app/var/static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "propagate": True,
+        },
+        "django.request": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "myproject.custom": {
+            "handlers": ["console", "mail_admins"],
+            "level": "INFO",
+        },
+    },
+}

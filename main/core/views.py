@@ -1,5 +1,5 @@
 from rest_framework import generics
-from .models import KeyValue
+from core.models import KeyValue
 from .serializers import KeyValueSerializer
 
 
