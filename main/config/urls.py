@@ -25,6 +25,7 @@ urlpatterns = (
         path("health-check/", lambda _: HttpResponse("OK")),
         path('admin/', admin.site.urls),
         path('api/', include('core.urls')),
+        path('', include('django_prometheus.urls')),
     ]
     + staticfiles_urlpatterns()
     + debug_toolbar_urls()
